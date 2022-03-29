@@ -1,0 +1,38 @@
+.mainPart .listPart ul {
+    width: 100%;
+    height: auto;
+}
+.mainPart .listPart ul li {
+    width: 90%;
+    height: 50px;
+    padding: 0 5%;
+    margin-top: 10px;
+    border-radius: 5px;
+    background-color: #ddd;
+    line-height: 50px;
+    position: relative;
+}
+
+.mainPart .listPart ul li span {
+    margin-left: 5%;
+}
+.listPart ul li .arrow {
+    width: 16px;
+    height: 16px;
+    background: url(img/downArrow.png) no-repeat center center/16px 16px;
+    position: absolute;
+    right: 5%;
+    top: 50%;
+    transform: translateY(-50%);
+    cursor: pointer;
+}
+.listPart ul li .upArrow {
+    width: 16px;
+    height: 16px;
+    background: url(img/upArrow.png) no-repeat center center/16px 16px;
+    position: absolute;
+    right: 5%;
+    top: 50%;
+    transform: translateY(-50%);
+    cursor: pointer;
+}

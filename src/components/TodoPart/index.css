@@ -1,0 +1,17 @@
+.todoPart {
+    float: left;
+    width: 50%;
+    height: 100%;
+}
+.mainPart {
+    width: 90%;
+    height: 100%;
+    margin-left: 5%;
+}
+.mainPart .title {
+    margin-top: 20px;
+    display: inline-block;
+}
+
+
+
