@@ -59,3 +59,7 @@
     cursor: pointer;
     display: none;
 }
+.completed  ul li button.detele {
+    top: 50%;
+    transform: translate(-100%,-50%);
+}

@@ -23,6 +23,13 @@ export default function Completed(props) {
     const isHide = () => {
         setIShide(!ishide);
     }
+
+    const deteleCompleted = (id) => {
+        if(window.confirm('确定删除吗？')){
+            props.deleteTodo(id);   
+        }
+    }
+
   return (
     <div className='completed' >
         <div className='completedTitle' >
@@ -38,7 +45,8 @@ export default function Completed(props) {
                           onMouseLeave = {()=>mouseEvent(false)}
                         >
                             {todo.name}
-                            <button style={{display:flag ? 'block' : 'none'}}  onClick={()=>changeStatus(todo.id)}>未完成</button>
+                            <button className='detele' style={{display:flag ? 'block' : 'none'}}  onClick={()=>changeStatus(todo.id)}>未完成</button>
+                            <button  style={{display:flag ? 'block' : 'none'}}  onClick={()=>deteleCompleted(todo.id)}>删除</button>
                         </li>
                     )
                   

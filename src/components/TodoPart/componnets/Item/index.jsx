@@ -12,17 +12,31 @@ export default function Item(props) {
        props.updateTodo(id,true);
     }
 
-    const [ishide,setIShide] = React.useState(false)
+    const [ishide,setIShide] = React.useState(true)
 
     const isHide = () => {
         setIShide(!ishide);
     }
-
     return (
-         <li style={{backgroundColor: flag ? '#ccc' : '#ddd'} } onMouseEnter={()=>mouseEvent(true)} onMouseLeave = {()=>mouseEvent(false)}>
+      <div>
+         <li className='todo' style={{backgroundColor: flag ? '#ccc' : '#ddd'} } onMouseEnter={()=>mouseEvent(true)} onMouseLeave = {()=>mouseEvent(false)}>
             <input type='radio'   onChange={()=>handleCheck(props.id)}/>
             <span>{props.name}</span>
             <div className={ ishide ? 'upArrow' : 'arrow'} onClick={isHide}></div>
          </li>
+         <ul className='detailUl'>
+            {
+               props.Detail.map((detail)=> {
+                  return(
+                     <li key={detail.id} style={{display: ishide ? 'none' :'block'}}> 
+                        <input type='radio'/>
+                        {detail.title}
+                     </li>
+                  )
+               })
+            }
+         </ul>
+      </div>
+
   )
 }
