@@ -2,7 +2,7 @@ import React from 'react'
 import Item from '../Item'
 import './index.css'
 export default function listPart(props) {
-    const newTodos = props.todos.filter((todo)=>{
+    const newTodos = props.todos.content.filter((todo)=>{
         return todo.done === false;
    }
    )
@@ -11,7 +11,7 @@ export default function listPart(props) {
         <ul>
         {
             newTodos.map((todo)=> {
-                return <Item key = {todo.id} {...todo} updateTodo = {props.updateTodo}/>
+                return <Item key = {todo.id} {...todo} updateTodo = {props.updateTodo}   getTodoDetail={props.getTodoDetail}/>
             })
         }
         </ul>

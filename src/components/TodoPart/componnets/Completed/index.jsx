@@ -1,8 +1,7 @@
 import React from 'react'
 import './index.css'
 export default function Completed(props) {
-
-    const newTodos = props.todos.filter((todo)=>{
+    const newTodos = props.todos.content.filter((todo)=>{
          return todo.done === true;
     }
     )
@@ -11,6 +10,12 @@ export default function Completed(props) {
 
     const mouseEvent = (flag) => {
             setFlag(flag);
+    }
+
+    const [titleFlag,setTitleFlag] = React.useState(false);
+
+    const titleMouseEvent = (flag) => {
+        setTitleFlag(flag);
     }
 
     const changeStatus = (id) => {
@@ -32,7 +37,10 @@ export default function Completed(props) {
 
   return (
     <div className='completed' >
-        <div className='completedTitle' >
+        <div className='completedTitle' style={{backgroundColor: titleFlag ? '#d3d3d3' : '#f0f0f0'}}
+             onMouseEnter={()=>titleMouseEvent(true)}
+             onMouseLeave = {()=>titleMouseEvent(false)}
+        >
             <span>completed({newTodos.length})</span>
             <div className={ ishide ? 'upArrow' : 'arrow'} onClick={isHide}></div>
         </div>
@@ -40,7 +48,7 @@ export default function Completed(props) {
             {
                newTodos.map((todo) => {
                     return (
-                        <li key={todo.id} style={{backgroundColor: flag ? '#ccc' : '#ddd',display: ishide ? 'none' :'block'}  }
+                        <li key={todo.id} style={{backgroundColor: flag ? '#d3d3d3' : '#f0f0f0',display: ishide ? 'none' :'block'}  }
                           onMouseEnter={()=>mouseEvent(true)}
                           onMouseLeave = {()=>mouseEvent(false)}
                         >

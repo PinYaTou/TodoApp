@@ -7,7 +7,7 @@ export default function Item(props) {
     const mouseEvent = (flag) => {
             setFlag(flag);
     }
-            
+
     const handleCheck = (id) => {
        props.updateTodo(id,true);
     }
@@ -17,16 +17,25 @@ export default function Item(props) {
     const isHide = () => {
         setIShide(!ishide);
     }
+    const changeDetail = () => {
+       props.getTodoDetail(props.id);
+    }
+
     return (
-      <div>
-         <li className='todo' style={{backgroundColor: flag ? '#ccc' : '#ddd'} } onMouseEnter={()=>mouseEvent(true)} onMouseLeave = {()=>mouseEvent(false)}>
+      <div className='todoList'>
+         <li className='todo' style={{backgroundColor: flag ? '#d3d3d3' : '#f0f0f0'} } 
+         onMouseEnter={()=>mouseEvent(true)} onMouseLeave = {()=>mouseEvent(false)}
+         onClick = {changeDetail}
+         >
             <input type='radio'   onChange={()=>handleCheck(props.id)}/>
             <span>{props.name}</span>
-            <div className={ ishide ? 'upArrow' : 'arrow'} onClick={isHide}></div>
+            <div className='date' style={{display: props.date !=='' ? 'block':'none' }}>{props.date}</div>
          </li>
+         <div className={ ishide ? 'upArrow' : 'arrow'} onClick={isHide}></div>
+         
          <ul className='detailUl'>
             {
-               props.Detail.map((detail)=> {
+               props.Detail&&props.Detail.map((detail)=> {
                   return(
                      <li key={detail.id} style={{display: ishide ? 'none' :'block'}}> 
                         <input type='radio'/>

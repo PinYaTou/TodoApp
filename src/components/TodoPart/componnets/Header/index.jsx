@@ -10,7 +10,7 @@ export default function header(props) {
             alert('输入不能为空');
             return;
         }
-        const todoObj = {id:nanoid(), name: target.value , done: false};
+        const todoObj = {id:nanoid(), name: target.value , done: false,date:'',Detail:[]};
         props.addTodo(todoObj);
         target.value = '';
    }

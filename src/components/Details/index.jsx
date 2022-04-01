@@ -1,18 +1,16 @@
 import React from 'react'
+import AddDate from './components/AddDate'
+import AddDetail from './components/AddDetail'
+import Header from './components/Header'
+import Introduction from './components/Introduction'
 import './index.css'
-export default function Detail() {
+export default function Detail(props) {
   return (
     <div className='detail'>
-      <div className='header'>
-        <div className='detele'></div>
-      </div>
-      <div className='introduction'>
-        <input type="text" name="" id="" />
-        <textarea  cols="30" rows="10"></textarea>
-      </div>
-      <div className='addDate'>
-        <img src="" alt="" />
-      </div>
+      <Header todoDetail = {props.todoDetail}  deleteTodo = {props.deleteTodo}/>
+      <Introduction todoDetail = {props.todoDetail}  changeName = {props.changeName}/>
+      <AddDate todoDetail = {props.todoDetail} addDate = {props.addDate}/>
+      <AddDetail todoDetail = {props.todoDetail} addDetail = {props.addDetail}   />
     </div>
   )
 }
