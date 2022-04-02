@@ -7,7 +7,7 @@ export default function Introduction(props) {
   }
   return (
       <div className='introduction'>
-        <input type="text" name="" id="" value={props.todoDetail[0].name} onChange ={changeName} />
+        <input type="text" name="" id="" value={props.todoDetail[0]&&props.todoDetail[0].name} onChange ={changeName} />
         <textarea  cols="30" rows="10" placeholder='Add introduction'></textarea>
       </div>
   )

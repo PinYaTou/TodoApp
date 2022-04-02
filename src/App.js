@@ -1,4 +1,4 @@
-import React, {Fragment}from 'react'
+import React, {Fragment,useState}from 'react'
 import Detail from './components/Details'
 import TodoPart from './components/TodoPart'
 import Types from './components/Types'
@@ -6,68 +6,74 @@ import Users from './components/Users'
 import  {Avatar,TYPESDATA} from './Store'
 export default function App() {
 
-  const [todos,setTodo] = React.useState(TYPESDATA[0]);
-  console.log(TYPESDATA)
-  console.log(todos)
+  const [todoPartTitle,setTodoPartTitle] = useState(TYPESDATA[0].title);
+
+  const [undoneList,setUndoneList] = useState(TYPESDATA[0].content);
+
+
   function addTodo  (todoObj)  {
-      const newTodos = [todoObj,...todos.content];
-      console.log(newTodos)
-      setTodo(todos,todos.content = newTodos);
+      setUndoneList([todoObj,...undoneList]);
+      
   }
 
   function updateTodo (id,done) {
-    const newTodos = todos.content.map((todo) => {
+    const newTodos = undoneList.map((todo) => {
       if(todo.id === id){
           todo.done = done;
       }
        return todo;
     })
-    setTodo(todos,todos.content = newTodos);
+
+    setUndoneList(newTodos);
+
   }
 
   function deleteTodo (id) {
-    const newTodos = todos.content.filter((todo) => {
+    const newTodos = undoneList.filter((todo) => {
         return todo.id !== id;
     })
-    setTodo(todos,todos.content = newTodos);
+    setUndoneList(newTodos);
   }
 
 
   //Details
-  const [todoDetail,setTodoDetail] =React.useState([todos.content[0]]) ;
+  let [todoDetail,setTodoDetail] = useState([]) ;
+
+
   const getTodoDetail = (id) => {
-    const newTodos = todos.content.filter((todo) => {
+    const newTodos = undoneList.filter((todo) => {
       return todo.id === id;
     })
     setTodoDetail(newTodos);
   }
 
   const changeName = (id,name) => {
-    console.log(todos.content)
-    const newTodos = todos.content.map((todo) => {
+    const newTodos = undoneList.map((todo) => {
       if(todo.id === id){
           todo.name = name;
       }
       return todo;
     })
-    console.log(newTodos)
-     setTodo(todos,todos.content = newTodos);
+    setUndoneList(newTodos);
   }
  
   const addDetail = (detailObj) => {
-    const newtodoDetail = todoDetail;
-    newtodoDetail[0].Detail = detailObj;
-    setTodoDetail(newtodoDetail);
+
+     todoDetail[0].Detail = detailObj;
+
+    setTodoDetail(todoDetail);
+
   }
 
   const addDate = (date) => {
-    const newtodoDetail = todoDetail;
-    newtodoDetail[0].date = date;
-    setTodoDetail(newtodoDetail);
+    
+    todoDetail[0].date = date;
+
+    setTodoDetail(todoDetail);
   }
 
   //Users
-  const [avatar,setAvatar] = React.useState(Avatar);
+  const [avatar,setAvatar] = useState(Avatar);
 
 
   const addUser = (userObj) => {
@@ -76,7 +82,7 @@ export default function App() {
   }
 
   // types
-  const [flag,setFlag] = React.useState(true);
+  const [flag,setFlag] = useState(true);
 
   const getHeaderFlag = (flag) => {
     setFlag(flag);
@@ -86,21 +92,24 @@ export default function App() {
     const newTodo = TYPESDATA.filter((todo) => {
       return todo.id === id;
     })
-    setTodo(newTodo[0]);
+    setUndoneList(newTodo[0].content);
+    
+    setTodoPartTitle(newTodo[0].title);
   }
 
   return (
     <Fragment>
       <Users avatar = {avatar} addUser = {addUser}/>
 
-      <Types getHeaderFlag = {getHeaderFlag}
-                flag = {flag} todos = {todos} 
+      <Types  getHeaderFlag = {getHeaderFlag}
+                flag = {flag}  
                 TYPESDATA = {TYPESDATA}
                 changeTypes = {changeTypes}
       />
 
       <TodoPart addTodo = {addTodo}  
-                todos = {todos} 
+                todoPartTitle = {todoPartTitle}
+                undoneList = {undoneList} 
                 updateTodo = {updateTodo} 
                 deleteTodo = {deleteTodo}
                 getTodoDetail = {getTodoDetail}

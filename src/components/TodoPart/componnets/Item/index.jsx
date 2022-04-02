@@ -33,6 +33,8 @@ export default function Item(props) {
          </li>
          <div className={ ishide ? 'upArrow' : 'arrow'} onClick={isHide}></div>
          
+
+         
          <ul className='detailUl'>
             {
                props.Detail&&props.Detail.map((detail)=> {

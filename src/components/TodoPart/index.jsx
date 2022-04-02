@@ -6,13 +6,25 @@ import  Completed  from './componnets/Completed'
 import './index.css'
 export default function TodoPart(props) {
 
+  const newUndoneList = props.undoneList.filter((todo)=>{
+    return todo.done === false;
+}
+)
+
+const completedList = props.undoneList.filter((todo)=>{
+  return todo.done === true;
+}
+)
   return (
     <div className='todoPart'>
       <div className='mainPart'>
-          <h2 className='title'>{props.todos.title}</h2>
+          <h2 className='title'>{props.todoPartTitle}</h2>
           <Header addTodo = {props.addTodo}/>
-          <ListPart todos = {props.todos} updateTodo = {props.updateTodo}  getTodoDetail={props.getTodoDetail}/>
-          <Completed todos = {props.todos} updateTodo = {props.updateTodo} deleteTodo = {props.deleteTodo}/>
+          <ListPart newUndoneList = {newUndoneList}
+                    updateTodo = {props.updateTodo}
+                    getTodoDetail={props.getTodoDetail}
+                      />
+          <Completed completedList = {completedList} updateTodo = {props.updateTodo} deleteTodo = {props.deleteTodo}/>
       </div>
     </div>
   )

@@ -1,10 +1,7 @@
 import React from 'react'
 import './index.css'
 export default function Completed(props) {
-    const newTodos = props.todos.content.filter((todo)=>{
-         return todo.done === true;
-    }
-    )
+
 
     const [flag,setFlag] = React.useState(false);
 
@@ -41,12 +38,12 @@ export default function Completed(props) {
              onMouseEnter={()=>titleMouseEvent(true)}
              onMouseLeave = {()=>titleMouseEvent(false)}
         >
-            <span>completed({newTodos.length})</span>
+            <span>completed({ props.completedList.length})</span>
             <div className={ ishide ? 'upArrow' : 'arrow'} onClick={isHide}></div>
         </div>
         <ul>
             {
-               newTodos.map((todo) => {
+               props.completedList.map((todo) => {
                     return (
                         <li key={todo.id} style={{backgroundColor: flag ? '#d3d3d3' : '#f0f0f0',display: ishide ? 'none' :'block'}  }
                           onMouseEnter={()=>mouseEvent(true)}
