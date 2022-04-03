@@ -5,15 +5,15 @@ import Header from './components/Header'
 import Introduction from './components/Introduction'
 import './index.css'
 export default function Detail(props) {
-  
+
   return (
     <div className='detail'>
-      <Header todoDetail = {props.todoDetail}  deleteTodo = {props.deleteTodo}/>
-      <Introduction todoDetail = {props.todoDetail}  changeName = {props.changeName}/>
-      <AddDate todoDetail = {props.todoDetail} addDate = {props.addDate}/>
-      <AddDetail todoDetail = {props.todoDetail}
-                 addDetail = {props.addDetail} 
-                   />
+      <Header id={props.todo.id} deleteTodo={props.deleteTodo} />
+      <Introduction name={props.todo.name} id={props.todo.id} changeName={props.changeName} />
+      <AddDate addDate={props.addDate} />
+      <AddDetail details={props.todo.Detail}
+        addDetail={props.addDetail}
+      />
     </div>
   )
 }

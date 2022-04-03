@@ -16,7 +16,7 @@ export default function Completed(props) {
     }
 
     const changeStatus = (id) => {
-        props.updateTodo(id,false);
+        props.updateTodo(id, { done: false });
     }
 
  

@@ -1,126 +1,145 @@
-import React, {Fragment,useState}from 'react'
+import React, { Fragment, useMemo, useState } from 'react'
 import Detail from './components/Details'
 import TodoPart from './components/TodoPart'
 import Types from './components/Types'
 import Users from './components/Users'
-import  {Avatar,TYPESDATA} from './Store'
+import { Avatar, TYPESDATA } from './Store'
 export default function App() {
 
-  const [todoPartTitle,setTodoPartTitle] = useState(TYPESDATA[0].title);
+  const [todoPartTitle, setTodoPartTitle] = useState(TYPESDATA[0].title);
 
-  const [undoneList,setUndoneList] = useState(TYPESDATA[0].content);
+  const [typeList, setTypeList] = useState(() => {
+    return TYPESDATA.map((type, index) => ({
+      ...type,
+      selected: index === 0,
+      content: type.content.map(todo => ({
+        ...todo,
+        selected: false,
+      }))
+    }))
+  });
 
+  const todoList = useMemo(() => {
+    const currentType = typeList.find(type => type.selected);
+    return currentType.content;
+  }, [typeList]);
 
-  function addTodo  (todoObj)  {
-      setUndoneList([todoObj,...undoneList]);
-      
+  const currentTodo = useMemo(
+    () => todoList.find(todo => todo.selected),
+    [typeList, todoList]
+  );
+
+  function updateTodoList(todoList) {
+    setTypeList(typeList => {
+      const currentIndex = typeList.findIndex(type => type.selected);
+      const currentType = typeList[currentIndex];
+      return [
+        ...typeList.slice(0, currentIndex),
+        {
+          ...currentType,
+          content: todoList
+        },
+        ...typeList.slice(currentIndex + 1)
+      ]
+    })
   }
 
-  function updateTodo (id,done) {
-    const newTodos = undoneList.map((todo) => {
-      if(todo.id === id){
-          todo.done = done;
+  function addTodo(todoObj) {
+    const newTodoList = [todoObj, ...todoList];
+    updateTodoList(newTodoList)
+  }
+
+
+  function deleteTodo(id) {
+    const newTodoList = todoList.filter((todo) => {
+      return todo.id !== id;
+    })
+    updateTodoList(newTodoList)
+  }
+
+  function updateTodo(id, updatePart) {
+    const newTodos = todoList.map((todo) => {
+      if (todo.id !== id) return todo;
+      return {
+        ...todo,
+        ...updatePart,
       }
-       return todo;
     })
 
-    setUndoneList(newTodos);
-
+    updateTodoList(newTodos);
   }
 
-  function deleteTodo (id) {
-    const newTodos = undoneList.filter((todo) => {
-        return todo.id !== id;
-    })
-    setUndoneList(newTodos);
-  }
-
-
-  //Details
-  let [todoDetail,setTodoDetail] = useState([]) ;
-
-
-  const getTodoDetail = (id) => {
-    const newTodos = undoneList.filter((todo) => {
-      return todo.id === id;
-    })
-    setTodoDetail(newTodos);
-  }
-
-  const changeName = (id,name) => {
-    const newTodos = undoneList.map((todo) => {
-      if(todo.id === id){
-          todo.name = name;
+  const changeName = (id, name) => {
+    const newTodos = todoList.map((todo) => {
+      if (todo.id === id) {
+        todo.name = name;
       }
       return todo;
     })
-    setUndoneList(newTodos);
+    updateTodoList(newTodos);
   }
- 
+
   const addDetail = (detailObj) => {
-
-     todoDetail[0].Detail = detailObj;
-
-    setTodoDetail(todoDetail);
-
+    updateTodo(currentTodo.id, { Detail: detailObj })
   }
 
   const addDate = (date) => {
-    
-    todoDetail[0].date = date;
-
-    setTodoDetail(todoDetail);
+    updateTodo(currentTodo.id, { date })
   }
 
   //Users
-  const [avatar,setAvatar] = useState(Avatar);
-
+  const [avatar, setAvatar] = useState(Avatar);
 
   const addUser = (userObj) => {
-    const newAvatar = [userObj,...avatar]
+    const newAvatar = [userObj, ...avatar]
     setAvatar(newAvatar);
   }
 
   // types
-  const [flag,setFlag] = useState(true);
+  const [flag, setFlag] = useState(true);
 
   const getHeaderFlag = (flag) => {
     setFlag(flag);
   }
 
   const changeTypes = (id) => {
-    const newTodo = TYPESDATA.filter((todo) => {
-      return todo.id === id;
-    })
-    setUndoneList(newTodo[0].content);
-    
-    setTodoPartTitle(newTodo[0].title);
+    setTypeList(typeList => {
+      return typeList.map(type => ({
+        ...type,
+        selected: type.id === id
+      }))
+    });
+
+    const currentType = typeList.find(type => type.id === id);
+    updateTodoList(currentType.content);
+    setTodoPartTitle(currentType.title);
   }
 
   return (
     <Fragment>
-      <Users avatar = {avatar} addUser = {addUser}/>
+      <Users avatar={avatar} addUser={addUser} />
 
-      <Types  getHeaderFlag = {getHeaderFlag}
-                flag = {flag}  
-                TYPESDATA = {TYPESDATA}
-                changeTypes = {changeTypes}
+      <Types getHeaderFlag={getHeaderFlag}
+        flag={flag}
+        typeList={typeList}
+        changeTypes={changeTypes}
       />
 
-      <TodoPart addTodo = {addTodo}  
-                todoPartTitle = {todoPartTitle}
-                undoneList = {undoneList} 
-                updateTodo = {updateTodo} 
-                deleteTodo = {deleteTodo}
-                getTodoDetail = {getTodoDetail}
+      <TodoPart addTodo={addTodo}
+        todoPartTitle={todoPartTitle}
+        undoneList={todoList}
+        updateTodo={updateTodo}
+        deleteTodo={deleteTodo}
       />
 
-      <Detail   todoDetail = {todoDetail}
-                deleteTodo = {deleteTodo} 
-                changeName = {changeName}
-                addDetail = {addDetail}
-                addDate = {addDate}
-      />
+      {
+        currentTodo ? <Detail todo={currentTodo}
+          deleteTodo={deleteTodo}
+          changeName={changeName}
+          addDetail={addDetail}
+          addDate={addDate}
+        /> : '未选择'
+      }
 
     </Fragment>
   )

@@ -11,7 +11,7 @@ export default function AddDetail(props) {
         return;
     }
     const detailObj = {id:nanoid(), title: target.value };
-    props.addDetail([detailObj,...props.todoDetail[0].Detail]);
+    props.addDetail([detailObj,...props.details]);
     target.value = '';
 } 
 
@@ -21,7 +21,7 @@ export default function AddDetail(props) {
         <ul >
           {
     
-            props.todoDetail.length !==0 && props.todoDetail[0].Detail.map((detail)=>{
+            props.details.map((detail)=>{
               return(
                 <li key={detail.id}>
                   <input className='radio' type="radio" />
