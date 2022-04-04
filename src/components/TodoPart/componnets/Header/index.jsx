@@ -1,6 +1,7 @@
-import React,{useState}from 'react'
+import React, { useState } from 'react'
 import { nanoid } from 'nanoid';
 import './index.css'
+
 export default function Header(props) {
 
   const [value, setValue] = useState('');

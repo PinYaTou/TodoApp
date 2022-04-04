@@ -1,7 +1,15 @@
-import React from 'react'
+import React, { useState } from 'react'
 import './index.css'
 import { nanoid } from 'nanoid';
 export default function AddDetail(props) {
+
+
+
+  const [value, setValue] = useState('');
+
+  function handleChange(e) {
+    setValue(e.target.value);
+  }
 
   function handleKeyUp(event) {
     const { key, target } = event;
@@ -12,12 +20,15 @@ export default function AddDetail(props) {
     }
     const detailObj = { id: nanoid(), title: target.value };
     props.addDetail([detailObj, ...props.details]);
-    target.value = '';
+    setValue('')
   }
+
 
   return (
     <div className='addDetail'>
-      <input className='addSubtasks' type="text" placeholder='Add subtasks' onKeyUp={handleKeyUp} />
+      <input className='addSubtasks' type="text" placeholder='Add subtasks'
+        value={value} onChange={handleChange}
+        onKeyUp={handleKeyUp} />
       <ul >
         {
 

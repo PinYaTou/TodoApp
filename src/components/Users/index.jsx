@@ -6,7 +6,7 @@ import './index.css'
 export default function Users(props) {
 
   const addUser = () => {
-    const userObj = {id:nanoid(),avatar:userAvatar};
+    const userObj = { id: nanoid(), avatar: userAvatar };
     props.addUser(userObj);
   }
 
@@ -15,7 +15,7 @@ export default function Users(props) {
       <ul className='user'>
         {
           props.avatar.map((userObj) => {
-            return(
+            return (
               <li key={userObj.id}>
                 <img src={userObj.avatar} alt="" />
               </li>
@@ -23,7 +23,7 @@ export default function Users(props) {
           })
         }
       </ul>
-        <img className='addUser' src={AddUser} alt=""  onClick={addUser}/>
+      <img className='addUser' src={AddUser} alt="" onClick={addUser} />
     </div>
   )
 }

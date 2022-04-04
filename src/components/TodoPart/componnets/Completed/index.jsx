@@ -3,61 +3,61 @@ import './index.css'
 export default function Completed(props) {
 
 
-    const [flag,setFlag] = React.useState(false);
+    const [flag, setFlag] = React.useState(false);
 
     const mouseEvent = (flag) => {
-            setFlag(flag);
+        setFlag(flag);
     }
 
-    const [titleFlag,setTitleFlag] = React.useState(false);
+    const [titleFlag, setTitleFlag] = React.useState(false);
 
     const titleMouseEvent = (flag) => {
         setTitleFlag(flag);
     }
 
     const changeStatus = (id) => {
-        props.updateTodo(id,{ done: false });
+        props.updateTodo(id, { done: false });
     }
 
- 
-    const [ishide,setIShide] = React.useState(false)
+
+    const [ishide, setIShide] = React.useState(false)
 
     const isHide = () => {
         setIShide(!ishide);
     }
 
     const deteleCompleted = (id) => {
-        if(window.confirm('确定删除吗？')){
-            props.deleteTodo(id);   
+        if (window.confirm('确定删除吗？')) {
+            props.deleteTodo(id);
         }
     }
 
-  return (
-    <div className='completed' >
-        <div className='completedTitle' style={{backgroundColor: titleFlag ? '#d3d3d3' : '#f0f0f0'}}
-             onMouseEnter={()=>titleMouseEvent(true)}
-             onMouseLeave = {()=>titleMouseEvent(false)}
-        >
-            <span>completed({ props.completedList.length})</span>
-            <div className={ ishide ? 'upArrow' : 'arrow'} onClick={isHide}></div>
+    return (
+        <div className='completed' >
+            <div className='completedTitle' style={{ backgroundColor: titleFlag ? '#d3d3d3' : '#f0f0f0' }}
+                onMouseEnter={() => titleMouseEvent(true)}
+                onMouseLeave={() => titleMouseEvent(false)}
+            >
+                <span>completed({props.completedList.length})</span>
+                <div className={ishide ? 'upArrow' : 'arrow'} onClick={isHide}></div>
+            </div>
+            <ul>
+                {
+                    props.completedList.map((todo) => {
+                        return (
+                            <li key={todo.id} style={{ backgroundColor: flag ? '#d3d3d3' : '#f0f0f0', display: ishide ? 'none' : 'block' }}
+                                onMouseEnter={() => mouseEvent(true)}
+                                onMouseLeave={() => mouseEvent(false)}
+                            >
+                                {todo.name}
+                                <button className='detele' style={{ display: flag ? 'block' : 'none' }} onClick={() => changeStatus(todo.id)}>未完成</button>
+                                <button style={{ display: flag ? 'block' : 'none' }} onClick={() => deteleCompleted(todo.id)}>删除</button>
+                            </li>
+                        )
+
+                    })
+                }
+            </ul>
         </div>
-        <ul>
-            {
-               props.completedList.map((todo) => {
-                    return (
-                        <li key={todo.id} style={{backgroundColor: flag ? '#d3d3d3' : '#f0f0f0',display: ishide ? 'none' :'block'}  }
-                          onMouseEnter={()=>mouseEvent(true)}
-                          onMouseLeave = {()=>mouseEvent(false)}
-                        >
-                            {todo.name}
-                            <button className='detele' style={{display:flag ? 'block' : 'none'}}  onClick={()=>changeStatus(todo.id)}>未完成</button>
-                            <button  style={{display:flag ? 'block' : 'none'}}  onClick={()=>deteleCompleted(todo.id)}>删除</button>
-                        </li>
-                    )
-                  
-                })
-            }
-        </ul>
-  </div>
-  )
+    )
 }
