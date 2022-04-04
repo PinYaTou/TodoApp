@@ -69,6 +69,15 @@ export default function App() {
     updateTodoList(newTodos);
   }
 
+  function selectTodo(id) {
+    const newTodos  =  todoList.map((todo) => ({
+      ...todo,
+      selected: id === todo.id
+    }));
+
+    updateTodoList(newTodos);
+  }
+
   const changeName = (id, name) => {
     const newTodos = todoList.map((todo) => {
       if (todo.id === id) {
@@ -130,6 +139,7 @@ export default function App() {
         undoneList={todoList}
         updateTodo={updateTodo}
         deleteTodo={deleteTodo}
+        selectTodo = {selectTodo}
       />
 
       {

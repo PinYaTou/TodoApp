@@ -22,6 +22,7 @@ export default function TodoPart(props) {
         <Header addTodo={props.addTodo} />
         <ListPart newUndoneList={newUndoneList}
           updateTodo={props.updateTodo}
+          selectTodo={props.selectTodo}
         />
         <Completed completedList={completedList} updateTodo={props.updateTodo} deleteTodo={props.deleteTodo} />
       </div>

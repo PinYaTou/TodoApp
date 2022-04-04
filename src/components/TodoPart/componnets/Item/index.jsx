@@ -17,15 +17,15 @@ export default function Item(props) {
    const isHide = () => {
       setIShide(!ishide);
    }
-   const changeDetail = () => {
-      props.updateTodo(props.id, { selected: true });
+   const handleClick = () => {
+      props.selectTodo(props.id);
    }
 
    return (
       <div className='todoList'>
          <li className='todo' style={{ backgroundColor: flag ? '#d3d3d3' : '#f0f0f0' }}
             onMouseEnter={() => mouseEvent(true)} onMouseLeave={() => mouseEvent(false)}
-            onClick={changeDetail}
+            onClick={handleClick}
          >
             <input type='radio' onChange={handleCheck} />
             <span>{props.name}</span>

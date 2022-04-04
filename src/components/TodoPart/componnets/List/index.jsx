@@ -12,6 +12,7 @@ export default function listPart(props) {
             return <Item key={todo.id}
               {...todo}
               updateTodo={props.updateTodo}
+              selectTodo={props.selectTodo}
             />
           })
         }
