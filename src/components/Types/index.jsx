@@ -9,7 +9,7 @@ export default function Types(props) {
     <div className='types'>
       <Header getHeaderFlag = {props.getHeaderFlag} />
       <DateTypeList flag = {props.flag}/>
-      <TypeList flag = {props.flag}  todos = {props.todos} TYPESDATA = {props.TYPESDATA} changeTypes = {props.changeTypes}/>
+      <TypeList flag = {props.flag}  typeList={props.typeList} changeTypes = {props.changeTypes}/>
       <CraeteNewList flag = {props.flag} />
     </div>
   )
