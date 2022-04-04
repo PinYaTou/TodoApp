@@ -6,17 +6,16 @@ export default function listPart(props) {
 
   return (
     <div className='listPart'>
-        <ul>
+      <ul>
         {
-            props.newUndoneList.map((todo)=> {
-                return <Item key = {todo.id}
-                                    {...todo}
-                                    updateTodo = {props.updateTodo}
-                                    getTodoDetail={props.getTodoDetail}
-                                    />
-            })
+          props.newUndoneList.map((todo) => {
+            return <Item key={todo.id}
+              {...todo}
+              updateTodo={props.updateTodo}
+            />
+          })
         }
-        </ul>
-  </div>
+      </ul>
+    </div>
   )
 }

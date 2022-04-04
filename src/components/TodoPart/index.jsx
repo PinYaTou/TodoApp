@@ -22,7 +22,6 @@ const completedList = props.undoneList.filter((todo)=>{
           <Header addTodo = {props.addTodo}/>
           <ListPart newUndoneList = {newUndoneList}
                     updateTodo = {props.updateTodo}
-                    getTodoDetail={props.getTodoDetail}
                       />
           <Completed completedList = {completedList} updateTodo = {props.updateTodo} deleteTodo = {props.deleteTodo}/>
       </div>

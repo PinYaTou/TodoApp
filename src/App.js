@@ -26,7 +26,7 @@ export default function App() {
 
   const currentTodo = useMemo(
     () => todoList.find(todo => todo.selected),
-    [typeList, todoList]
+    [ todoList]
   );
 
   function updateTodoList(todoList) {

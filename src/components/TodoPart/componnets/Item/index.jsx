@@ -8,8 +8,8 @@ export default function Item(props) {
             setFlag(flag);
     }
 
-    const handleCheck = (id) => {
-       props.updateTodo(id,true);
+    const handleCheck = () => {
+      props.updateTodo(props.id, { done: true } );
     }
 
     const [ishide,setIShide] = React.useState(true)
@@ -18,7 +18,7 @@ export default function Item(props) {
         setIShide(!ishide);
     }
     const changeDetail = () => {
-       props.getTodoDetail(props.id);
+      props.updateTodo(props.id, { selected: true });
     }
 
     return (
@@ -27,7 +27,7 @@ export default function Item(props) {
          onMouseEnter={()=>mouseEvent(true)} onMouseLeave = {()=>mouseEvent(false)}
          onClick = {changeDetail}
          >
-            <input type='radio'   onChange={()=>handleCheck(props.id)}/>
+            <input type='radio'   onChange={()=>handleCheck}/>
             <span>{props.name}</span>
             <div className='date' style={{display: props.date !=='' ? 'block':'none' }}>{props.date}</div>
          </li>
